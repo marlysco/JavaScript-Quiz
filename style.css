@@ -1,0 +1,45 @@
+* {
+    font-family: verdana;
+    font-weight: bolder;
+}
+
+header {
+    display:flex;
+    justify-content:space-between;
+    
+ 
+}
+
+.timer{
+    padding: 5px;  
+    font-size: 15px;
+    background-color: darkmagenta;
+    color: white;
+    margin-top: 3px;
+    padding-top: 10px;
+    
+}
+
+#questionbar, article {
+    margin-top: 15%;
+    font-size: 25px;
+    text-align: center;   
+}
+
+button {
+    background-color: darkmagenta;
+    color: white;
+    margin: 10px;
+  
+    width: 100px;
+    height: 5vh;  
+}
+
+#start {
+    margin-left: 5%;
+}
+
+ul {
+    list-style-type: none;
+    align-items:center;
+}
