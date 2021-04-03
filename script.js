@@ -199,3 +199,4 @@ highScore.addEventListener("click", function(){
 
     }
   }
+});
