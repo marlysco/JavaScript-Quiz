@@ -1,6 +1,6 @@
 //Variables
 var clock= document.getElementById("clock");
-var listAnswer=[];
+var userChoises=[];
 
 var questionsArray = [
   {
@@ -68,14 +68,63 @@ function clear () {
 
 function setQuiz(index) {
  for (var i=0; i<=questionsArray.length; i++) {
+  if (index > questionsArray.length) {
+    gameOver();
+  }
+   //Show the question
   document.getElementById("question").textContent=questionsArray[index].title;
-   var userAnswers=questionsArray[index].answer;
-   userAnswers.forEach(showChoises);
+  //Show the choises for this question
+  var userChoises = questionsArray[index].choises;
+  console.log(userChoises); 
+  userChoises.forEach(showChoises);
+  //Check if the answer is correct or no
+  listChoises.addEventListener("click", checkAnswer());
  }
 }
 
 function showChoises() {
-  var listAnswer=document.createElement("button");
-  listAnswer.textContent=item;
-  document.getElementById('answers').appendChild(listAnswer);
+  var listChoises=document.createElement("button");
+  listChoises.textContent=item;
+  console,log(item);
+  document.getElementById('answers').appendChild(listChoises);
+}
+
+function checkAnswer(event) {
+  if (event.target.matches('button')){
+    var userPicked = event.textContent;
+    //If answer is correct, let the ;user know and go to next question (if is not the last one)
+  if (userPicked === questionsArray[index].answer && timeLeft>0) {
+    message(Correct, );
+  }
+  //If answer is correct but time is over, end game nad let and show the user info input
+  else if ( timeLeft<= 0) {
+    gameOver();
+  }
+  //If answer is incorrect, let the user know and check time 
+  else {
+    message(Incorrect, );
+    timeLeft= timeLeft -10;
+    console.log(timeLeft);
+    if (timeLeft <= 0) {
+    gameOver()
+    }
+  }
+  } 
+}
+
+function gameOver(){
+  message(Game, Over);
+  input();
+  }
+
+function input (){
+  document.getElementById("question").style.display="none";
+  listChoises.style.display="none" 
+}
+
+function message(a,b) {
+  var messageTime = setInterval (function(){
+    document.getElementById("info").textContent=a + b
+    document.getElementById("info").style.display="block";
+  },3000);
 }
