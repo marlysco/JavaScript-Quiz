@@ -119,10 +119,9 @@ function gameOver(){
   input();
   }
 
-
-
 function message(a,b) {
   var messageTime = setInterval (function(){
+    console.log(messageTime);
     document.getElementById("info").textContent=a + b
     document.getElementById("info").style.display="block";
   },3000);
@@ -130,13 +129,73 @@ function message(a,b) {
 
 function input (){
   //Clear the screen
-  document.getElementById("question").style.display="none";
+  clear ();
   listChoises.style.display="none" 
   //All done!
   document.getElementById("intro").textContent="All Done!!"
   document.getElementById("intro").style.display="block";
   //Show user score
   document.getElementById("info").textContent="Your final score is "+ score;
-  document.getElementById("intro").style.display="block";
-  
+  document.getElementById("info").style.display="block";
+  //
+  var enterInit = document.createElement("div");
+  enterInit.textContent="Please enter your initials: ";
+  document.getElementById("info").appendChild(enterInit);
+  enterInit.style.display="flex";
+  //Input to enter the initials 
+  var intInput=document.createElement('input');
+  intInput.style.display="flex";
+  intInput.setAttribute("type", "text");
+  intInput.textContent="Your initials here"
+  document.getElementById("info").appendChild(intInput)
+  //Submit button 
+  var submit=document.createElement('button');
+  submit.textContent="Submit";
+  submit.style.display="flex"
+  document.getElementById("info").appendChild(submit);
+  //When submit button is clicked
+  submit.addEventListener("click", function () {
+    var initials = intInput.value;
+    if (initials === null) {
+        alert("Please enter your initials");
+    } else {
+        var finalScore = {
+            initials: initials,
+            score: score,
+        }
+        console.log(finalScore);
+        var allScores = localStorage.getItem("allScores");
+        if (allScores === null) {
+            allScores = [];
+        } else {
+            allScores = JSON.parse(allScores);
+        }
+        allScores.push(finalScore);
+        var newScore = JSON.stringify(allScores);
+        localStorage.setItem("allScores", newScore);
+    }
+});
 }
+
+var highScore =document.getElementById("score");
+highScore.addEventListener("click", function(){
+  //Clear the screen
+  clear ();
+  listChoises.style.display="none" 
+  intInput.textContent=""
+  submit.style.display="none";
+  enterInit.style.display="none";
+  
+  var allScores = localStorage.getItem("allScores");
+  allScores = JSON.parse(allScores);
+
+  if (allScores !== null) {
+
+    for (var i = 0; i < allScores.length; i++) {
+
+        var createLi = document.createElement("li");
+        createLi.textContent = allScores[i].initials + " " + allScores[i].score;
+        highScore.appendChild(createLi);
+
+    }
+  }
