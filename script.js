@@ -1,6 +1,7 @@
 //Variables
 var clock= document.getElementById("clock");
 var userChoises=[];
+var score=0
 
 var questionsArray = [
   {
@@ -95,6 +96,7 @@ function checkAnswer(event) {
     //If answer is correct, let the ;user know and go to next question (if is not the last one)
   if (userPicked === questionsArray[index].answer && timeLeft>0) {
     message(Correct, );
+    score= score + 10;
   }
   //If answer is correct but time is over, end game nad let and show the user info input
   else if ( timeLeft<= 0) {
@@ -117,14 +119,24 @@ function gameOver(){
   input();
   }
 
-function input (){
-  document.getElementById("question").style.display="none";
-  listChoises.style.display="none" 
-}
+
 
 function message(a,b) {
   var messageTime = setInterval (function(){
     document.getElementById("info").textContent=a + b
     document.getElementById("info").style.display="block";
   },3000);
+}
+
+function input (){
+  //Clear the screen
+  document.getElementById("question").style.display="none";
+  listChoises.style.display="none" 
+  //All done!
+  document.getElementById("intro").textContent="All Done!!"
+  document.getElementById("intro").style.display="block";
+  //Show user score
+  document.getElementById("info").textContent="Your final score is "+ score;
+  document.getElementById("intro").style.display="block";
+  
 }
